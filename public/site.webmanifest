@@ -1,0 +1,21 @@
+{
+  "name": "Tidy Mimo",
+  "short_name": "TidyMimo",
+  "description": "Your Active Cleaning Partner",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FCE8F4",
+  "theme_color": "#D41479",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

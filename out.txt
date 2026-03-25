@@ -1,0 +1,13 @@
+
+> my-app@0.1.0 build
+> next build
+
+
+> Build error occurred
+Error: EPERM: operation not permitted, unlink 'C:\Users\LAPTEX\OneDrive\Desktop\project tidy\.next\static\kfo_iFQB5Sifyosv-HGjA'
+    at ignore-listed frames {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'unlink',
+  path: 'C:\\Users\\LAPTEX\\OneDrive\\Desktop\\project tidy\\.next\\static\\kfo_iFQB5Sifyosv-HGjA'
+}

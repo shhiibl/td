@@ -1,0 +1,268 @@
+﻿commit 583ebcf4c045963f93a837bc8c49cd648851d6ba
+Author: shhiibl <muhammedshibalmp1@gmail.com>
+Date:   Tue Mar 24 14:35:09 2026 +0530
+
+    Clean push
+
+diff --git a/app/page.js b/app/page.js
+new file mode 100644
+index 0000000..1232c0b
+--- /dev/null
++++ b/app/page.js
+@@ -0,0 +1,256 @@
++"use client";
++
++import Image from 'next/image';
++import { motion, useScroll, useTransform } from 'framer-motion';
++import { ShieldCheck, Sparkles, Droplets, Tag } from 'lucide-react';
++import MagneticButton from './components/MagneticButton';
++import Marquee from './components/Marquee';
++
++const fadeInUp = {
++  hidden: { opacity: 0, y: 40 },
++  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
++};
++
++const staggerContainer = {
++// ... preserving rest of top level scope
++  hidden: { opacity: 1 },
++  visible: {
++    opacity: 1,
++    transition: { staggerChildren: 0.15, delayChildren: 0.1 }
++  }
++};
++
++export default function Home() {
++  const { scrollY } = useScroll();
++  const y1 = useTransform(scrollY, [0, 1000], [0, 200]);
++  const scaleImage = useTransform(scrollY, [0, 800], [1, 1.15]);
++
++  return (
++    <div style={{ overflowX: 'hidden' }}>
++      {/* Hero Section */}
++      <section style={{
++        minHeight: '100vh',
++        display: 'flex',
++        alignItems: 'center',
++        position: 'relative',
++        paddingTop: '80px',
++      }}>
++        <div className="container" style={{ 
++          display: 'grid', 
++          gridTemplateColumns: '1fr 1fr', 
++          gap: '4rem', 
++          alignItems: 'center',
++          position: 'relative', 
++          zIndex: 2 
++        }}>
++          <motion.div 
++            initial={{ opacity: 0, x: -40 }} 
++            animate={{ opacity: 1, x: 0 }} 
++            transition={{ duration: 0.8, ease: "easeOut" }}
++            style={{ zIndex: 10, position: 'relative' }}
++          >
++            <h1 style={{ fontSize: '4.5rem', marginBottom: '1.5rem', lineHeight: 1.05, color: 'var(--text-primary)' }}>
++              Cleanliness is not just a <span className="text-gradient">routine.</span>
++            </h1>
++            <p style={{ fontSize: '1.25rem', marginBottom: '1.5rem', color: 'var(--text-secondary)', maxWidth: '550px' }}>
++              ItΓÇÖs a reflection of care, quality, and trust. As a growing brand in detergents and surfactants, Tidymimo delivers powerful cleaning solutions for households, industries, hotels, and specialized sectors like oil and gas.
++            </p>
++            <p style={{ fontSize: '1.1rem', marginBottom: '2.5rem', color: 'var(--text-secondary)', maxWidth: '500px' }}>
++              From everyday laundry to industrial degreasing, Tidymimo stands for brilliance, freshness, and reliability ΓÇö ensuring spotless results every time.
++            </p>
++            <div style={{ display: 'flex', gap: '1.5rem' }}>
++              <MagneticButton href="/products" className="btn-primary">
++                Explore Products <Sparkles size={18} />
++              </MagneticButton>
++              <MagneticButton href="/about" className="btn-secondary">
++                Our Story
++              </MagneticButton>
++            </div>
++          </motion.div>
++
++          <motion.div 
++            initial={{ opacity: 0, y: 60 }} 
++            animate={{ opacity: 1, y: 0 }} 
++            transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
++            style={{ position: 'relative', height: '550px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
++          >
++            <motion.div 
++              style={{ width: '85%', height: '100%' }}
++              whileHover={{ scale: 1.02 }}
++              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
++            >
++              <div style={{
++                width: '100%', height: '100%', position: 'relative', overflow: 'hidden', padding: 0,
++                borderRadius: '2rem',
++                border: '2px solid var(--primary-transparent)',
++                background: 'transparent',
++                boxShadow: '0 20px 40px rgba(108, 42, 121, 0.08)'
++              }}>
++                <motion.div style={{ width: '100%', height: '100%', scale: scaleImage }}>
++                  <Image 
++                    src="/assets/Family.png" 
++                    alt="Tidy Mimo Family Care" 
++                    fill 
++                    style={{ objectFit: 'cover' }} 
++                    priority
++                  />
++                </motion.div>
++                {/* Premium internal glass glare overlay */}
++                <div style={{ 
++                  position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, 
++                  background: 'linear-gradient(110deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0.1) 100%)',
++                  zIndex: 2, pointerEvents: 'none' 
++                }} />
++              </div>
++            </motion.div>
++          </motion.div>
++        </div>
++      </section>
++
++      {/* Marquee Ticker */}
++      <Marquee text="AFFORDABLE ΓÇó EFFECTIVE ΓÇó TRUSTED ΓÇó YOUR PARTNER IN ACTIVE CLEANING ΓÇó " />
++
++      {/* Brand Values / Personality Preview */}
++      <section style={{ padding: '10rem 5%', position: 'relative', overflow: 'hidden' }}>
++        <motion.div style={{ y: y1, position: 'absolute', right: '-10%', top: '10%', opacity: 0.02, zIndex: 0 }}>
++          <Image src="/assets/LogoNoBg.png" width={800} height={400} alt="" />
++        </motion.div>
++        
++        {/* Futuristic Glowing Orbs in Background */}
++        <div style={{ position: 'absolute', top: '10%', left: '-5%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(212, 20, 121, 0.15) 0%, transparent 70%)', filter: 'blur(60px)', zIndex: 0, pointerEvents: 'none' }} />
++        <div style={{ position: 'absolute', bottom: '-10%', right: '-5%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(108, 42, 121, 0.15) 0%, transparent 70%)', filter: 'blur(80px)', zIndex: 0, pointerEvents: 'none' }} />
++
++        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
++          <motion.div 
++            initial="hidden"
++            whileInView="visible"
++            viewport={{ once: true, margin: "-100px" }}
++            variants={fadeInUp}
++            style={{ textAlign: 'center', marginBottom: '6rem' }}
++          >
++            <h2 style={{ fontSize: '3.5rem', marginBottom: '1.5rem', fontWeight: 700, letterSpacing: '-0.5px' }}>
++              Why Choose <span style={{
++                background: 'linear-gradient(135deg, #D41479, #6C2A79)',
++                WebkitBackgroundClip: 'text',
++                WebkitTextFillColor: 'transparent',
++                display: 'inline-block',
++                textShadow: '0 10px 30px rgba(212, 20, 121, 0.3)'
++              }}>Tidymimo</span>
++            </h2>
++            <p style={{ color: 'rgba(255,255,255,0.7)', maxWidth: '650px', margin: '0 auto', fontSize: '1.2rem', lineHeight: 1.6 }}>
++              Affordable. Effective. Trusted. Engineered for maximum performance with futuristic formulations and eco-conscious design.
++            </p>
++          </motion.div>
++
++          <motion.div 
++            initial="hidden"
++            whileInView="visible"
++            viewport={{ once: true, margin: "-100px" }}
++            variants={staggerContainer}
++            style={{ 
++              display: 'grid', 
++              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', 
++              gap: '2rem' 
++            }}
++          >
++            {[
++              { title: 'Molecular Power', desc: 'Powerful performance on tough grease, stains, and dirt.', icon: <Sparkles color="#D41479" size={34} />, glow: '#D41479' },
++              { title: 'Lasting Freshness', desc: 'Engineered fragrances that stay active all day long.', icon: <Droplets color="#6C2A79" size={34} />, glow: '#6C2A79' },
++              { title: 'Eco-Conscious', desc: 'Sustainable formulations safe for tomorrow.', icon: <ShieldCheck color="#D41479" size={34} />, glow: '#D41479' },
++              { title: 'Premium Value', desc: 'Elite-tier cleaning power without the markup pricing.', icon: <Tag color="#6C2A79" size={34} />, glow: '#6C2A79' }
++            ].map((v, i) => (
++              <motion.div key={i} variants={fadeInUp} style={{ height: '100%' }}>
++                <motion.div 
++                  style={{ height: '100%', position: 'relative', cursor: 'pointer' }}
++                  whileHover="hover"
++                  initial="rest"
++                >
++                  {/* Outer Ambient Glow */}
++                  <motion.div
++                    variants={{
++                      rest: { opacity: 0, scale: 0.9 },
++                      hover: { opacity: 1, scale: 1 }
++                    }}
++                    transition={{ duration: 0.5, ease: "easeOut" }}
++                    style={{
++                      position: 'absolute',
++                      inset: 0,
++                      borderRadius: '32px',
++                      background: `linear-gradient(180deg, ${v.glow}50, transparent)`,
++                      zIndex: 0,
++                      filter: 'blur(20px)',
++                      transform: 'translateY(-10px)'
++                    }}
++                  />
++                  
++                  <motion.div 
++                    variants={{
++                      rest: { y: 0 },
++                      hover: { y: -10 }
++                    }}
++                    transition={{ duration: 0.4, ease: "easeOut" }}
++                    style={{ 
++                      height: '100%', 
++                      position: 'relative',
++                      background: 'linear-gradient(180deg, rgba(20, 20, 25, 0.8) 0%, rgba(10, 10, 15, 0.9) 100%)',
++                      backdropFilter: 'blur(30px)',
++                      WebkitBackdropFilter: 'blur(30px)',
++                      borderRadius: '32px',
++                      padding: '3.5rem 1.5rem',
++                      border: '1px solid rgba(255,255,255,0.03)',
++                      borderTop: `1px solid ${v.glow}60`,
++                      boxShadow: '0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05)',
++                      display: 'flex',
++                      flexDirection: 'column',
++                      alignItems: 'center',
++                      textAlign: 'center',
++                      zIndex: 1,
++                      overflow: 'hidden'
++                    }}
++                  >
++                    {/* Top centered highlight inside card */}
++                    <div style={{
++                      position: 'absolute',
++                      top: 0,
++                      left: '50%',
++                      transform: 'translateX(-50%)',
++                      width: '150px',
++                      height: '150px',
++                      background: `radial-gradient(circle, ${v.glow}25 0%, transparent 70%)`,
++                      zIndex: 0
++                    }} />
++
++                    {/* Centered Circular Icon Container */}
++                    <div style={{ 
++                      width: '84px', 
++                      height: '84px', 
++                      borderRadius: '50%', 
++                      background: `radial-gradient(circle at top, rgba(255,255,255,0.08), transparent)`,
++                      border: `1px solid ${v.glow}40`,
++                      boxShadow: `inset 0 4px 20px ${v.glow}20, 0 15px 30px rgba(0,0,0,0.4)`,
++                      display: 'flex', 
++                      alignItems: 'center', 
++                      justifyContent: 'center', 
++                      marginBottom: '2.5rem',
++                      position: 'relative',
++                      zIndex: 1
++                    }}>
++                      <div style={{
++                        position: 'absolute', inset: 0, borderRadius: '50%',
++                        boxShadow: `0 0 30px ${v.glow}30`, zIndex: -1
++                      }} />
++                      {v.icon}
++                    </div>
++                    
++                    <h3 style={{ fontSize: '1.45rem', marginBottom: '1rem', fontWeight: 600, color: '#fff', letterSpacing: '0.5px', zIndex: 1 }}>{v.title}</h3>
++                    <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.95rem', lineHeight: 1.6, zIndex: 1 }}>{v.desc}</p>
++                  </motion.div>
++                </motion.div>
++              </motion.div>
++            ))}
++          </motion.div>
++        </div>
++      </section>
++    </div>
++  );
++}
