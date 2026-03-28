@@ -11,7 +11,7 @@ export default function Error({ error, reset }) {
         width={120} height={120} 
         style={{ filter: 'grayscale(100%)', opacity: 0.5, marginBottom: '2rem' }} 
       />
-      <h2 className="heading-lg" style={{ marginBottom: '1rem' }}>Something went wrong!</h2>
+      <h2 className="heading-lg sanoof" style={{ marginBottom: '1rem' }}>Something went wrong!</h2>
       <p className="text-sub" style={{ marginBottom: '2rem', textAlign: 'center' }}>An unexpected error occurred while loading this page.</p>
       <button onClick={() => reset()} className="btn btn-primary">Try Again</button>
     </div>

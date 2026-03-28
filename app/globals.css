@@ -42,6 +42,13 @@ html.dark {
   --glass-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.3);
 }
 
+/* Theme Logo Switching */
+.logo-dark { display: none !important; }
+.logo-light { display: block !important; }
+
+html.dark .logo-light { display: none !important; }
+html.dark .logo-dark { display: block !important; }
+
 body {
   background-color: var(--bg-main);
   color: var(--text-primary);
@@ -206,6 +213,7 @@ h1, h2, h3, h4, h5, h6 {
 .section-spacing { padding: 9rem 5%; }
 .bg-tint { background-color: var(--bg-tint); border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); }
 
+.split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
 .grid-cols-12 { display: grid; grid-template-columns: repeat(12, 1fr); gap: 2rem; }
 .grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; }
 .flex-center { display: flex; align-items: center; justify-content: center; }
@@ -222,6 +230,7 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 768px) {
   .desktop-nav { display: none; }
   .mobile-nav-toggle { display: flex; }
+  .split-grid { grid-template-columns: 1fr; }
   .grid-cols-12 { grid-template-columns: 1fr; gap: 1.5rem; }
   .col-span-5, .col-span-7 { grid-column: span 1 !important; }
   .section-spacing { padding: 5rem 5%; }

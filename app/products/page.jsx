@@ -200,9 +200,9 @@ export default function Products() {
                 padding: '1rem 2rem',
                 borderRadius: '100px',
                 border: '1px solid',
-                borderColor: activeCategory === item.id ? 'var(--primary)' : 'var(--glass-border)',
-                background: activeCategory === item.id ? 'var(--primary)' : 'var(--surface-1)',
-                color: activeCategory === item.id ? '#fff' : 'var(--text-primary)',
+                borderColor: activeCategory === item.id ? 'var(--primary-pink)' : 'var(--glass-border)',
+                background: activeCategory === item.id ? 'var(--bg-tint)' : 'var(--bg-surface)',
+                color: activeCategory === item.id ? 'var(--primary-purple)' : 'var(--text-primary)',
                 fontWeight: 600,
                 fontSize: '1rem',
                 cursor: 'pointer',
@@ -235,7 +235,7 @@ export default function Products() {
               <h2 style={{ fontSize: '3.5rem', fontWeight: 700, marginBottom: '1rem', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
                 {catalog[activeCategory].title}
               </h2>
-              <p style={{ fontSize: '1.25rem', color: 'var(--primary)', fontWeight: 500, marginBottom: '1rem' }}>
+              <p style={{ fontSize: '1.25rem', color: 'var(--primary-purple)', fontWeight: 500, marginBottom: '1rem' }}>
                 {catalog[activeCategory].subtitle}
               </p>
               <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', maxWidth: '800px', margin: '0 auto', lineHeight: 1.6 }}>
@@ -250,7 +250,7 @@ export default function Products() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: i * 0.1 }}
-                  style={{ background: 'var(--surface-1)', border: '1px solid var(--glass-border)', borderRadius: '2rem', overflow: 'hidden', display: 'flex', flexDirection: 'column', transition: 'transform 0.4s ease, box-shadow 0.4s ease', boxShadow: '0 20px 40px rgba(0,0,0,0.03)' }}
+                  style={{ background: 'var(--bg-surface)', border: '1px solid var(--glass-border)', borderRadius: '2rem', overflow: 'hidden', display: 'flex', flexDirection: 'column', transition: 'transform 0.4s ease, box-shadow 0.4s ease', boxShadow: '0 20px 40px rgba(0,0,0,0.03)' }}
                   whileHover={{ y: -10, boxShadow: '0 30px 60px rgba(0,0,0,0.08)' }}
                 >
                   <div style={{ height: '280px', position: 'relative', background: 'var(--background)', padding: '2rem' }}>
@@ -259,7 +259,7 @@ export default function Products() {
                   <div style={{ padding: '2.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
                     <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
                       {item.features.map((feature, idx) => (
-                        <span key={idx} style={{ background: 'var(--primary-transparent)', color: 'var(--primary)', padding: '0.4rem 1rem', borderRadius: '100px', fontSize: '0.8rem', fontWeight: 600 }}>
+                        <span key={idx} style={{ background: 'var(--bg-tint)', color: 'var(--primary-purple)', padding: '0.4rem 1rem', borderRadius: '100px', fontSize: '0.8rem', fontWeight: 600 }}>
                           {feature}
                         </span>
                       ))}

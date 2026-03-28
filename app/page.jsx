@@ -8,6 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { ShieldCheck, Sparkles, Droplets, Tag, ArrowRight, CheckCircle2, Star, TrendingUp, Users, Factory } from 'lucide-react';
 import HeroScene from './components/HeroScene';
+import ProblemSolutionCard from './components/ProblemSolutionCard';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -71,31 +72,16 @@ export default function Home() {
   return (
     <div ref={containerRef} style={{ position: 'relative' }}>
       
-      {/* Liquid Background Assets */}
-      <div className="liquid-bg">
-        <div className="liquid-blob-1"></div>
-        <div className="liquid-blob-2"></div>
-      </div>
-
+      {/* Liquid Background Assets Removed */}
       {/* 1. Cinematic Hero with Liquid Interactions */}
       <section 
         ref={heroRef}
         onMouseMove={handleHeroMouseMove}
         style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}
       >
-        {/* Glow Mask tracking cursor */}
-        <div style={{
-          position: 'absolute',
-          top: 0, left: 0,
-          width: '100%', height: '100%',
-          background: 'radial-gradient(circle 500px at var(--glow-x, 50%) var(--glow-y, 50%), rgba(217, 168, 232, 0.12), transparent)',
-          pointerEvents: 'none',
-          zIndex: 1,
-          transition: 'background 0.15s ease-out'
-        }} />
-
-        <HeroScene />
+        {/* Background Visuals Removed per feedback */}
         
+
         <div style={{ 
           position: 'relative', zIndex: 10, textAlign: 'center', maxWidth: '850px', margin: '0 auto', padding: '0 5%',
           transform: 'translate3d(var(--hover-x, 0), var(--hover-y, 0), 0)',
@@ -120,6 +106,39 @@ export default function Home() {
             <Link href="/about" className="btn btn-glass">
               Our Story
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 1.5 The Tidymimo Difference (Hover Cards) */}
+      <section className="section-spacing reveal-section">
+        <div className="container">
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+            <h2 className="heading-lg">Experience the <span className="text-gradient">Difference</span></h2>
+            <p className="text-sub" style={{ maxWidth: '600px', margin: '1rem auto 0' }}>Hover over the cards below to see how our premium formulations conquer everyday laundry and cleaning issues.</p>
+          </div>
+          <div className="grid-auto stagger-grid">
+            <ProblemSolutionCard 
+              index="01"
+              problemText="Stubborn stains that never fully vanish"
+              problemDesc="Repeated washing leaves fabrics damaged while grime stays locked deep in the fibers."
+              solutionText="Advanced stain-lift formula removes the toughest marks"
+              solutionDesc="Deep penetration enzymes lift dirt effortlessly without compromising fabric strength."
+            />
+            <ProblemSolutionCard 
+              index="02"
+              problemText="Clothes losing their original vibrancy"
+              problemDesc="Bright colors fade into dullness, making garments look old prematurely."
+              solutionText="Active color protection lock technology"
+              solutionDesc="Polymers safeguard dye integrity, keeping your clothes vividly bright wash after wash."
+            />
+            <ProblemSolutionCard 
+              index="03"
+              problemText="Musty odors lingering after a wash"
+              problemDesc="Invisible bacteria trapped in weaves causes unpleasant smells to persist."
+              solutionText="Long-lasting encapsulated freshness"
+              solutionDesc="Micro-fragrance pearls burst during wear, offering premium freshness all day long."
+            />
           </div>
         </div>
       </section>

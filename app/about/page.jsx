@@ -15,42 +15,42 @@ export default function About() {
   useGSAP(() => {
     // Reveal main heading
     gsap.fromTo(".about-heading", 
-      { y: 50, opacity: 0 }, 
-      { y: 0, opacity: 1, duration: 1.2, stagger: 0.15, ease: "power3.out" }
+      { y: 30, opacity: 0 }, 
+      { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out" }
     );
 
     // Stagger text blocks
     gsap.fromTo(".fade-up",
-      { y: 40, opacity: 0 },
+      { y: 30, opacity: 0 },
       { 
-        y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out",
+        y: 0, opacity: 1, duration: 0.7, stagger: 0.1, ease: "power3.out",
         scrollTrigger: {
           trigger: ".story-section",
-          start: "top 75%"
+          start: "top 95%"
         }
       }
     );
 
     // Bento panels
     gsap.fromTo(".bento-panel",
-      { y: 50, opacity: 0 },
+      { y: 30, opacity: 0 },
       {
-        y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out",
+        y: 0, opacity: 1, duration: 0.7, stagger: 0.1, ease: "power3.out",
         scrollTrigger: {
           trigger: ".mission-vision",
-          start: "top 80%"
+          start: "top 95%"
         }
       }
     );
 
     // Brand Values
     gsap.fromTo(".value-panel",
-      { y: 50, opacity: 0 },
+      { y: 30, opacity: 0 },
       {
-        y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out",
+        y: 0, opacity: 1, duration: 0.7, stagger: 0.1, ease: "power3.out",
         scrollTrigger: {
           trigger: ".values-section",
-          start: "top 85%"
+          start: "top 95%"
         }
       }
     );
@@ -87,7 +87,7 @@ export default function About() {
       {/* Our Story */}
       <section className="story-section" style={{ padding: '8rem 5%', maxWidth: '1300px', margin: '0 auto' }}>
         <div className="split-grid" style={{ gap: '6rem', alignItems: 'center' }}>
-          <div className="fade-up" style={{ position: 'relative', height: '650px', borderRadius: '32px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.05)' }}>
+          <div className="fade-up" style={{ position: 'relative', height: '480px', width: '100%', maxWidth: '420px', marginRight: 'auto', borderRadius: '32px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.05)' }}>
             <Image src="/assets/Woman.png" alt="Tidy Mimo Story" fill style={{ objectFit: 'cover' }} />
           </div>
           <div>
