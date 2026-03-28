@@ -87,9 +87,6 @@ export default function Home() {
           transform: 'translate3d(var(--hover-x, 0), var(--hover-y, 0), 0)',
           transition: 'transform 0.1s cubic-bezier(0.16, 1, 0.3, 1)'
         }}>
-          <div style={{ padding: '0.6rem 1.5rem', borderRadius: '100px', display: 'inline-block', marginBottom: '2rem', border: '1px solid var(--glass-border)', background: 'var(--bg-surface)', backdropFilter: 'blur(10px)', color: 'var(--text-secondary)', fontSize: '0.85rem', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase' }}>
-            Your Active Cleaning Partner
-          </div>
           
           <h1 className="heading-xl">
             Cleanliness is not just a <span className="text-gradient">routine.</span>
