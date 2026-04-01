@@ -1,0 +1,10 @@
+Datasource "db": PostgreSQL database "postgres", schema "public" at "aws-1-ap-northeast-2.pooler.supabase.com:5432"
+
+⚠️  There might be data loss when applying the changes:
+
+  • A unique constraint covering the columns `[slug]` on the table `Product` will be added. If there are existing duplicate values, this will fail.
+
+
+
+Your database is now in sync with your Prisma schema. Done in 8.10s
+

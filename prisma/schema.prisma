@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          String      @id @default(uuid())
+  name        String
+  category    String      // household | industrial | carcare | hotels
+  features    String[]
+  description String
+  imageUrl    String
+  slug        String?     @unique
+  inStock     Boolean     @default(true)
+  sortOrder   Int         @default(0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  seo         ProductSeo?
+}
+
+model ProductSeo {
+  id              String   @id @default(uuid())
+  productId       String   @unique
+  product         Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  metaTitle       String?
+  metaDescription String?
+  keywords        String?
+  ogTitle         String?
+  ogDescription   String?
+  ogImage         String?
+  updatedAt       DateTime @updatedAt
+}
+
+model Admin {
+  id             String    @id @default(uuid())
+  email          String    @unique
+  passwordHash   String
+  name           String
+  resetToken     String?
+  resetExpiresAt DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}

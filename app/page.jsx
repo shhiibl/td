@@ -70,37 +70,31 @@ export default function Home() {
   };
 
   return (
-    <div ref={containerRef} style={{ position: 'relative' }}>
+    <div ref={containerRef} className="relative">
       
-      {/* Liquid Background Assets Removed */}
       {/* 1. Cinematic Hero with Liquid Interactions */}
       <section 
         ref={heroRef}
         onMouseMove={handleHeroMouseMove}
-        style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}
+        className="h-screen flex items-center justify-center relative overflow-hidden"
       >
-        {/* Background Visuals Removed per feedback */}
-        
-
-        <div style={{ 
-          position: 'relative', zIndex: 10, textAlign: 'center', maxWidth: '850px', margin: '0 auto', padding: '0 5%',
-          transform: 'translate3d(var(--hover-x, 0), var(--hover-y, 0), 0)',
-          transition: 'transform 0.1s cubic-bezier(0.16, 1, 0.3, 1)'
-        }}>
-          
-          <h1 className="heading-xl">
+        <div 
+          className="relative mt-20 z-10 text-center max-w-[850px] transition-transform duration-100 ease-out"
+          style={{ transform: 'translate3d(var(--hover-x, 0), var(--hover-y, 0), 0)' }}
+        >
+          <h1 className="text-5xl md:text-8xl font-black mb-6 px-4 leading-tight tracking-tight">
             Cleanliness is not just a <span className="text-gradient">routine.</span>
           </h1>
 
-          <p className="text-sub" style={{ margin: '2rem auto', maxWidth: '600px', fontSize: '1.25rem' }}>
+          <p className="text-text-secondary text-lg md:text-2xl max-w-2xl mx-auto mb-12 px-6">
             At Tidymimo, we believe cleanliness is a reflection of care, quality, and trust. Delivering powerful cleaning solutions for households, industries, hotels, and specialized sectors.
           </p>
           
-          <div className="flex-center" style={{ gap: '1rem', flexWrap: 'wrap', marginTop: '3rem' }}>
-            <Link href="/products" className="btn btn-primary">
-              Explore Products <ArrowRight size={20} />
+          <div className="flex flex-wrap justify-center gap-4 mt-12">
+            <Link href="/products" className="btn-primary btn flex items-center gap-2 group">
+              Explore Products <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </Link>
-            <Link href="/about" className="btn btn-glass">
+            <Link href="/about" className="btn-glass px-10 py-4 font-bold border border-glass-border rounded-full hover:bg-bg-surface-hover transition-all">
               Our Story
             </Link>
           </div>
@@ -108,13 +102,13 @@ export default function Home() {
       </section>
 
       {/* 1.5 The Tidymimo Difference (Hover Cards) */}
-      <section className="section-spacing reveal-section">
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <h2 className="heading-lg">Experience the <span className="text-gradient">Difference</span></h2>
-            <p className="text-sub" style={{ maxWidth: '600px', margin: '1rem auto 0' }}>Hover over the cards below to see how our premium formulations conquer everyday laundry and cleaning issues.</p>
+      <section className="py-24 md:py-36 px-[5%] reveal-section">
+        <div className="container mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-7xl font-black tracking-tight">Experience the <span className="text-gradient">Difference</span></h2>
+            <p className="text-text-secondary text-lg md:text-xl max-w-2xl mx-auto mt-6">Hover over the cards below to see how our premium formulations conquer everyday laundry and cleaning issues.</p>
           </div>
-          <div className="grid-auto stagger-grid">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 stagger-grid">
             <ProblemSolutionCard 
               index="01"
               problemText="Stubborn stains that never fully vanish"
@@ -141,27 +135,27 @@ export default function Home() {
       </section>
 
       {/* 2. Why Choose Tidymimo (Tinted Alternate Background) */}
-      <section className="section-spacing reveal-section bg-tint">
-        <div className="container">
-          <div style={{ marginBottom: '5rem', textAlign: 'center' }}>
-            <h2 className="heading-lg">Why Choose <span className="text-gradient">Tidymimo</span></h2>
-            <p className="text-sub" style={{ maxWidth: '600px', margin: '1rem auto 0' }}>From everyday laundry to industrial degreasing, Tidymimo stands for brilliance, freshness, and reliability.</p>
+      <section className="py-24 md:py-36 px-[5%] reveal-section bg-bg-tint border-y border-white/30">
+        <div className="container mx-auto">
+          <div className="mb-20 text-center">
+            <h2 className="text-4xl md:text-7xl font-black tracking-tight">Why Choose <span className="text-gradient">Tidymimo</span></h2>
+            <p className="text-text-secondary text-lg md:text-xl max-w-2xl mx-auto mt-6">From everyday laundry to industrial degreasing, Tidymimo stands for brilliance, freshness, and reliability.</p>
           </div>
 
-          <div className="grid-cols-12 stagger-grid">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 stagger-grid">
             {[
-              { title: 'Powerful Performance', desc: 'Effective on stubborn grease, stains, and dirt across all environments.', icon: <Sparkles size={32} color="var(--primary-pink)" />, span: 'col-span-7' },
-              { title: 'Pleasant Fragrances', desc: 'Engineered for freshness that is refreshing and lasts all day.', icon: <Droplets size={32} color="var(--primary-purple)" />, span: 'col-span-5' },
-              { title: 'Safe & Eco-Conscious', desc: 'Sustainable formulations that prioritize safety and environmental care.', icon: <ShieldCheck size={32} color="var(--primary-pink)" />, span: 'col-span-5' },
-              { title: 'Premium Value', desc: 'Affordable pricing without any compromise on elite cleaning quality.', icon: <Tag size={32} color="var(--primary-purple)" />, span: 'col-span-7' }
+              { title: 'Powerful Performance', desc: 'Effective on stubborn grease, stains, and dirt across all environments.', icon: <Sparkles size={32} className="text-primary-pink" />, span: 'md:col-span-7' },
+              { title: 'Pleasant Fragrances', desc: 'Engineered for freshness that is refreshing and lasts all day.', icon: <Droplets size={32} className="text-primary-purple" />, span: 'md:col-span-5' },
+              { title: 'Safe & Eco-Conscious', desc: 'Sustainable formulations that prioritize safety and environmental care.', icon: <ShieldCheck size={32} className="text-primary-pink" />, span: 'md:col-span-5' },
+              { title: 'Premium Value', desc: 'Affordable pricing without any compromise on elite cleaning quality.', icon: <Tag size={32} className="text-primary-purple" />, span: 'md:col-span-7' }
             ].map((feature, i) => (
-              <div key={i} className={`glass-panel ${feature.span}`} style={{ padding: '3.5rem', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', minHeight: '350px' }}>
-                <div style={{ width: '72px', height: '72px', borderRadius: '16px', background: 'var(--bg-main)', border: '1px solid var(--glass-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 'auto' }}>
+              <div key={i} className={`glass-panel p-10 md:p-14 flex flex-col items-start min-h-[350px] ${feature.span}`}>
+                <div className="w-16 h-16 rounded-2xl bg-bg-main border border-glass-border flex items-center justify-center mb-auto shadow-sm">
                   {feature.icon}
                 </div>
-                <div style={{ marginTop: '2.5rem' }}>
-                  <h3 className="heading-md" style={{ marginBottom: '1rem' }}>{feature.title}</h3>
-                  <p className="text-sub">{feature.desc}</p>
+                <div className="mt-10">
+                  <h3 className="text-2xl md:text-3xl font-black mb-4 tracking-tight">{feature.title}</h3>
+                  <p className="text-text-secondary text-lg">{feature.desc}</p>
                 </div>
               </div>
             ))}
@@ -169,122 +163,87 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. Feature Highlights (Light Background) */}
-      <section className="section-spacing reveal-section">
-        <div className="container grid-cols-12" style={{ alignItems: 'center' }}>
-          <div className="col-span-5">
-            <h2 className="heading-lg" style={{ marginBottom: '1.5rem' }}>Next-Gen Solutions for Every Space</h2>
-            <p className="text-sub" style={{ marginBottom: '2.5rem' }}>
+      {/* 3. Feature Highlights */}
+      <section className="py-24 md:py-36 px-[5%] reveal-section">
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 items-center">
+          <div className="md:col-span-5">
+            <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">Next-Gen Solutions for Every Space</h2>
+            <p className="text-text-secondary text-lg mb-10 leading-relaxed">
               Whether you are maintaining a cozy home or managing an industrial facility, our liquid formulations adapt to your specific sanitation needs with zero compromise.
             </p>
-            <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 3rem 0', display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+            <ul className="flex flex-col gap-5 mb-12">
               {['Household Care & Detergents', 'Industrial Grade Degreasers', 'Hospitality Surface Cleaners'].map((item, i) => (
-                <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '1.1rem', fontWeight: 500, color: 'var(--text-primary)' }}>
-                  <CheckCircle2 color="var(--primary-pink)" /> {item}
+                <li key={i} className="flex items-center gap-4 text-xl font-bold text-text-primary">
+                  <CheckCircle2 className="text-primary-pink" /> {item}
                 </li>
               ))}
             </ul>
-            <Link href="/products" className="btn btn-glass">View All Ranges</Link>
+            <Link href="/products" className="btn-glass px-8 py-4 rounded-xl border border-glass-border font-bold hover:border-primary-pink/50 transition-colors">View All Ranges</Link>
           </div>
-          <div className="col-span-7 stagger-grid">
-            <div className="glass-panel" style={{ height: '450px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, var(--bg-surface), rgba(212, 20, 121, 0.03))' }}>
-              <div style={{ textAlign: 'center' }}>
-                <Droplets size={64} color="var(--primary-purple)" style={{ margin: '0 auto 1.5rem', opacity: 0.8 }} />
-                <span className="text-gradient heading-md" style={{ display: 'block' }}>Liquid Flow Formulations</span>
+          <div className="md:col-span-7 stagger-grid">
+            <div className="glass-panel h-[450px] flex items-center justify-center bg-gradient-to-br from-bg-surface to-primary-pink/5">
+              <div className="text-center">
+                <Droplets size={80} className="text-primary-purple mx-auto mb-6 opacity-80" />
+                <span className="text-gradient text-3xl font-black block tracking-tight">Liquid Flow Formulations</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 4. How It Works (Tinted Alternate Background) */}
-      <section className="section-spacing reveal-section bg-tint">
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
-            <h2 className="heading-lg">Our Liquid <span className="text-gradient">Process</span></h2>
+      {/* 4. How It Works */}
+      <section className="py-24 md:py-36 px-[5%] reveal-section bg-bg-tint border-y border-white/30">
+        <div className="container mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-7xl font-black tracking-tight">Our Liquid <span className="text-gradient">Process</span></h2>
           </div>
-          <div className="grid-auto stagger-grid">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 stagger-grid">
             {[
               { step: '01', title: 'Consultation', desc: 'We analyze your industrial or household cleaning requirements.' },
               { step: '02', title: 'Formulation', desc: 'Targeted chemistry engineered for your specific dirt profiling.' },
               { step: '03', title: 'Delivery & Results', desc: 'Fast deployment resulting in spotless, frictionless hygiene.' }
             ].map((step, i) => (
-              <div key={i} className="glass-panel" style={{ position: 'relative', padding: '3rem 2.5rem', overflow: 'hidden' }}>
-                <div style={{ fontSize: '6rem', fontWeight: 700, opacity: 0.03, color: 'var(--primary-purple)', position: 'absolute', top: '-1rem', right: '1rem', lineHeight: 1 }}>
+              <div key={i} className="glass-panel relative p-12 overflow-hidden group hover:bg-bg-surface-hover transition-all">
+                <div className="text-9xl font-black opacity-[0.03] text-primary-purple absolute -top-4 -right-4 leading-none pointer-events-none group-hover:opacity-[0.06] transition-opacity">
                   {step.step}
                 </div>
-                <h3 className="heading-md" style={{ marginTop: '2rem', marginBottom: '1rem', position: 'relative' }}>{step.title}</h3>
-                <p className="text-sub" style={{ position: 'relative' }}>{step.desc}</p>
+                <h3 className="text-3xl font-black mt-8 mb-4 relative z-10 tracking-tight">{step.title}</h3>
+                <p className="text-text-secondary text-lg relative z-10 leading-relaxed">{step.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 5. Stats / Metrics (Light Background) */}
-      <section className="section-spacing reveal-section">
-        <div className="container stagger-grid">
-          <div className="glass-panel" style={{ padding: '4rem', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', gap: '3rem' }}>
+      {/* 5. Stats / Metrics */}
+      <section className="py-24 md:py-36 px-[5%] reveal-section">
+        <div className="container mx-auto stagger-grid">
+          <div className="glass-panel p-12 md:p-20 flex flex-wrap justify-around gap-12 shadow-xl">
             {[
-              { label: 'Happy Clients', value: '10k+', icon: <Users size={32} /> },
-              { label: 'Products Tested', value: '150+', icon: <Factory size={32} /> },
-              { label: 'Satisfaction Rate', value: '99%', icon: <TrendingUp size={32} /> }
+              { label: 'Happy Clients', value: '10k+', icon: <Users size={40} /> },
+              { label: 'Products Tested', value: '150+', icon: <Factory size={40} /> },
+              { label: 'Satisfaction Rate', value: '99%', icon: <TrendingUp size={40} /> }
             ].map((stat, i) => (
-              <div key={i} style={{ textAlign: 'center', flex: '1 1 200px' }}>
-                <div style={{ color: 'var(--primary-pink)', marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>{stat.icon}</div>
-                <div className="heading-lg" style={{ marginBottom: '0.5rem', fontWeight: 600 }}>{stat.value}</div>
-                <div className="text-sub">{stat.label}</div>
+              <div key={i} className="text-center flex-1 min-w-[200px]">
+                <div className="text-primary-pink mb-6 flex justify-center">{stat.icon}</div>
+                <div className="text-5xl md:text-7xl font-black mb-2 tracking-tighter">{stat.value}</div>
+                <div className="text-text-secondary text-xl font-medium">{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 6. Testimonials (Tinted Alternate Background) */}
-      <section className="section-spacing reveal-section bg-tint">
-        <div className="container">
-          <h2 className="heading-lg" style={{ textAlign: 'center', marginBottom: '5rem' }}>Trusted by <span className="text-gradient">Thousands</span></h2>
-          <div className="grid-auto stagger-grid">
-             {[
-               { name: 'Sarah Jenkins', role: 'Operations Manager', quote: "Tidymimo's industrial degreasers completely transformed our factory's maintenance routine. Smooth, efficient, and smells great!" },
-               { name: 'David Lee', role: 'Facility Director', quote: "The most reliable cleaning partner we've ever worked with. The aesthetic of the brand matches the premium quality of the liquids." },
-               { name: 'Priya Sharma', role: 'Homeowner', quote: "Finally, a household cleaner that is tough on stains but completely gentle and safe for my family. Highly recommended." }
-             ].map((t, i) => (
-               <div key={i} className="glass-panel testimonial-card" style={{ padding: '3rem 2.5rem', display: 'flex', flexDirection: 'column' }}>
-                 <div style={{ display: 'flex', gap: '0.3rem', marginBottom: '2rem', color: 'var(--sec-rose)' }}>
-                   <Star fill="currentColor" size={18}/><Star fill="currentColor" size={18}/><Star fill="currentColor" size={18}/><Star fill="currentColor" size={18}/><Star fill="currentColor" size={18}/>
-                 </div>
-                 <p className="text-sub" style={{ fontStyle: 'italic', marginBottom: '2.5rem', fontSize: '1.05rem', color: 'var(--text-primary)' }}>
-                   "{t.quote}"
-                 </p>
-                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: 'auto' }}>
-                   <div style={{ width: '45px', height: '45px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--sec-lavender), var(--sec-rose))' }}></div>
-                   <div>
-                     <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{t.name}</div>
-                     <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{t.role}</div>
-                   </div>
-                 </div>
-               </div>
-             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 7. NEW: CTA with Animated Background (Light Background) */}
-      <section className="section-spacing reveal-section" style={{ paddingBottom: '10rem' }}>
-        <div className="container">
-          <div className="glass-panel" style={{ 
-            padding: '7rem 3rem', textAlign: 'center', border: 'none',
-            background: 'linear-gradient(225deg, var(--sec-lavender), var(--sec-rose), var(--bg-tint))',
-            backgroundSize: '200% 200%',
-            animation: 'gradientFlow 8s ease infinite'
-          }}>
-            <h2 className="heading-lg" style={{ color: '#1A0A1D', marginBottom: '1.5rem' }}>Ready to Experience True Clean?</h2>
-            <p className="text-sub" style={{ color: 'rgba(26, 10, 29, 0.8)', maxWidth: '600px', margin: '0 auto 3rem' }}>
+      {/* 7. CTA Section */}
+      <section className="py-24 md:py-48 px-[5%] reveal-section">
+        <div className="container mx-auto">
+          <div className="glass-panel rounded-[4rem] px-8 py-24 md:py-36 text-center border-none bg-gradient-to-br from-sec-lavender via-sec-rose to-bg-tint bg-[length:200%_200%] animate-[gradientFlow_8s_ease_infinite]">
+            <h2 className="text-4xl md:text-7xl font-black text-text-primary mb-6 tracking-tight leading-none">Ready to Experience True Clean?</h2>
+            <p className="text-text-primary/80 text-lg md:text-xl max-w-2xl mx-auto mb-12 px-4 leading-relaxed font-medium">
               Upgrade your cleaning standards today with our premium formulations.
             </p>
-            <Link href="/contact" className="btn btn-glass" style={{ background: 'rgba(255,255,255,0.4)', color: '#1A0A1D', borderColor: 'rgba(255,255,255,0.6)', fontWeight: 600 }}>
-              Get in Touch Now <ArrowRight size={20} />
+            <Link href="/contact" className="btn-glass bg-white/40 text-text-primary border-white/60 font-black px-12 py-5 rounded-2xl inline-flex items-center gap-3 hover:bg-white/60 transition-all">
+              Get in Touch Now <ArrowRight size={24} />
             </Link>
           </div>
         </div>
