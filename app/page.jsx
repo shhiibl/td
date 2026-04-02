@@ -82,7 +82,7 @@ export default function Home() {
           className="relative mt-20 z-10 text-center max-w-[850px] transition-transform duration-100 ease-out"
           style={{ transform: 'translate3d(var(--hover-x, 0), var(--hover-y, 0), 0)' }}
         >
-          <h1 className="text-5xl md:text-8xl font-black mb-6 px-4 leading-tight tracking-tight">
+          <h1 className="heading-xl mb-6 px-4">
             Cleanliness is not just a <span className="text-gradient">routine.</span>
           </h1>
 
@@ -105,7 +105,7 @@ export default function Home() {
       <section className="py-24 md:py-36 px-[5%] reveal-section">
         <div className="container mx-auto">
           <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-7xl font-black tracking-tight">Experience the <span className="text-gradient">Difference</span></h2>
+            <h2 className="heading-lg">Experience the <span className="text-gradient">Difference</span></h2>
             <p className="text-text-secondary text-lg md:text-xl max-w-2xl mx-auto mt-6">Hover over the cards below to see how our premium formulations conquer everyday laundry and cleaning issues.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 stagger-grid">
@@ -138,7 +138,7 @@ export default function Home() {
       <section className="py-24 md:py-36 px-[5%] reveal-section bg-bg-tint border-y border-white/30">
         <div className="container mx-auto">
           <div className="mb-20 text-center">
-            <h2 className="text-4xl md:text-7xl font-black tracking-tight">Why Choose <span className="text-gradient">Tidymimo</span></h2>
+            <h2 className="heading-lg">Why Choose <span className="text-gradient">Tidymimo</span></h2>
             <p className="text-text-secondary text-lg md:text-xl max-w-2xl mx-auto mt-6">From everyday laundry to industrial degreasing, Tidymimo stands for brilliance, freshness, and reliability.</p>
           </div>
 
@@ -167,7 +167,7 @@ export default function Home() {
       <section className="py-24 md:py-36 px-[5%] reveal-section">
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 items-center">
           <div className="md:col-span-5">
-            <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">Next-Gen Solutions for Every Space</h2>
+            <h2 className="heading-lg mb-6">Next-Gen Solutions for Every Space</h2>
             <p className="text-text-secondary text-lg mb-10 leading-relaxed">
               Whether you are maintaining a cozy home or managing an industrial facility, our liquid formulations adapt to your specific sanitation needs with zero compromise.
             </p>
@@ -195,7 +195,7 @@ export default function Home() {
       <section className="py-24 md:py-36 px-[5%] reveal-section bg-bg-tint border-y border-white/30">
         <div className="container mx-auto">
           <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-7xl font-black tracking-tight">Our Liquid <span className="text-gradient">Process</span></h2>
+            <h2 className="heading-lg">Our Liquid <span className="text-gradient">Process</span></h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 stagger-grid">
             {[
@@ -238,7 +238,7 @@ export default function Home() {
       <section className="py-24 md:py-48 px-[5%] reveal-section">
         <div className="container mx-auto">
           <div className="glass-panel rounded-[4rem] px-8 py-24 md:py-36 text-center border-none bg-gradient-to-br from-sec-lavender via-sec-rose to-bg-tint bg-[length:200%_200%] animate-[gradientFlow_8s_ease_infinite]">
-            <h2 className="text-4xl md:text-7xl font-black text-text-primary mb-6 tracking-tight leading-none">Ready to Experience True Clean?</h2>
+            <h2 className="heading-lg text-text-primary mb-6">Ready to Experience True Clean?</h2>
             <p className="text-text-primary/80 text-lg md:text-xl max-w-2xl mx-auto mb-12 px-4 leading-relaxed font-medium">
               Upgrade your cleaning standards today with our premium formulations.
             </p>

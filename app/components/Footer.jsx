@@ -1,7 +1,15 @@
+"use client";
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 export default function Footer() {
+  const pathname = usePathname();
+  const isAdminPage = pathname?.startsWith('/admin');
+
+  if (isAdminPage) return null;
+
   return (
     <footer className="bg-bg-main text-text-secondary py-24 px-[5%] border-t border-glass-border relative overflow-hidden">
       

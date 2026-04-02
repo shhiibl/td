@@ -17,13 +17,14 @@ function MobiusMesh({ isHovered }) {
   // Highly optimized material & geometry for fast 60fps rendering
   // Removed expensive Environment, Clearcoat, and reduced vertex count by 75%
   return (
-    <mesh ref={meshRef} scale={0.65}>
+    <mesh ref={meshRef} scale={0.45}>
       <torusKnotGeometry args={[1.6, 0.55, 64, 12, 1, 2]} />
       <meshStandardMaterial 
         color={isHovered ? '#D41479' : '#A855C0'} 
         roughness={isHovered ? 0.2 : 0.6} 
         metalness={0.7}
         transparent
+        depthWrite={false}
         opacity={isHovered ? 0.5 : 0.15}
       />
     </mesh>
@@ -32,7 +33,7 @@ function MobiusMesh({ isHovered }) {
 
 export default function MobiusIcon({ isHovered }) {
   return (
-    <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', transition: 'transform 0.5s ease', transform: isHovered ? 'scale(1.05)' : 'scale(1)' }}>
+    <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', transition: 'transform 0.5s ease', transform: isHovered ? 'scale(1.05)' : 'scale(1)', willChange: 'transform' }}>
       {/* Reduced DPR to prevent GPU bottleneck on high-res screens */}
       <Canvas camera={{ position: [0, 0, 5], fov: 45 }} gl={{ alpha: true, powerPreference: "high-performance" }} dpr={[1, 1.2]}>
         <ambientLight intensity={1.5} />

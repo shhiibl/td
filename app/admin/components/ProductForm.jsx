@@ -84,188 +84,267 @@ export default function ProductForm({ initialProduct = null, initialSeo = null, 
     finally { setSaving(false); }
   }
 
-  const inputStyle = {
-    width: '100%', padding: '0.85rem 1rem', borderRadius: '12px',
-    border: '1.5px solid rgba(217,168,232,0.5)', fontSize: '0.95rem',
-    outline: 'none', background: '#fff', color: '#1A0A1D', boxSizing: 'border-box',
-    fontFamily: 'inherit',
-  };
-  const textareaStyle = { ...inputStyle, minHeight: '100px', resize: 'vertical' };
-  const labelStyle = { display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#6C2A79', marginBottom: '8px' };
-  const fieldStyle = { marginBottom: '1.2rem' };
-
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: '#F9F0FB' }}>
-      {/* Sidebar */}
-      <aside style={{
-        width: '220px', background: 'linear-gradient(180deg, #3A0D45 0%, #1A0822 100%)',
-        padding: '2rem 1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', flexShrink: 0,
-      }}>
-        <Link href="/admin" style={{ color: 'rgba(252,232,244,0.7)', textDecoration: 'none', fontSize: '0.88rem', padding: '0.6rem 0.8rem', borderRadius: '8px', display: 'block', marginBottom: '1rem' }}>
+    <div className="flex flex-col md:flex-row min-h-screen bg-[#F9F0FB] font-[Inter]">
+      {/* Responsive Sidebar (Top Nav on Mobile) */}
+      <aside className="w-full md:w-[220px] bg-gradient-to-b from-[#3A0D45] to-[#1A0822] p-4 md:p-6 md:py-8 flex flex-row md:flex-col items-center md:items-start justify-between md:justify-start gap-4 flex-shrink-0 md:sticky top-0 md:h-screen">
+        <Link 
+          href="/admin" 
+          className="text-[#FCE8F4]/70 no-underline text-sm px-4 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 transition-colors hidden md:block w-full text-center"
+        >
           ← Back to Dashboard
         </Link>
-        <div style={{ color: '#FCE8F4', fontWeight: 700, fontSize: '1rem', padding: '0.5rem 0.8rem' }}>
+        
+        {/* Mobile-only back button (icon only to save space) */}
+        <Link href="/admin" className="md:hidden text-[#FCE8F4]/70 p-2 bg-white/5 hover:bg-white/10 rounded-lg">
+          ← Back
+        </Link>
+
+        <div className="text-[#FCE8F4] font-bold text-base md:text-lg flex-1 md:w-full text-right md:text-left">
           {isEdit ? '✏️ Edit Product' : '➕ New Product'}
         </div>
       </aside>
 
-      {/* Main */}
-      <main style={{ flex: 1, padding: '2rem', maxWidth: '900px' }}>
-        <h1 style={{ margin: '0 0 0.4rem', fontSize: '1.8rem', fontWeight: 700, color: '#1A0A1D' }}>
+      {/* Main Form Area */}
+      <main className="flex-1 p-5 md:p-8 w-full max-w-[1000px] mx-auto overflow-y-auto">
+        
+        <h1 className="m-0 text-2xl md:text-3xl font-bold text-[#1A0A1D] mb-1.5 leading-tight">
           {isEdit ? `Edit: ${initialProduct?.name || ''}` : 'Add New Product'}
         </h1>
-        <p style={{ margin: '0 0 2rem', color: 'rgba(26,10,29,0.55)', fontSize: '0.9rem' }}>
+        <p className="m-0 text-[#1A0A1D]/60 text-sm md:text-base mb-8">
           {isEdit ? 'Update product details and SEO settings.' : 'Fill in the details for the new product.'}
         </p>
 
-        {/* Tabs */}
-        <div style={{ display: 'flex', gap: '0.4rem', marginBottom: '2rem', background: 'rgba(217,168,232,0.15)', borderRadius: '12px', padding: '4px', width: 'fit-content' }}>
+        {/* Tab Navigation */}
+        <div className="flex bg-[#D9A8E8]/15 rounded-xl p-1 mb-8 w-fit overflow-x-auto max-w-full">
           {TABS.map(tab => (
-            <button key={tab} onClick={() => setActiveTab(tab)}
-              style={{
-                padding: '0.6rem 1.5rem', borderRadius: '10px', border: 'none', cursor: 'pointer',
-                fontSize: '0.9rem', fontWeight: 700, transition: 'all 0.2s',
-                background: activeTab === tab ? 'linear-gradient(135deg, #6C2A79, #D41479)' : 'transparent',
-                color: activeTab === tab ? '#fff' : '#6C2A79',
-                boxShadow: activeTab === tab ? '0 4px 12px rgba(212,20,121,0.25)' : 'none',
-              }}>
-              {tab === 'SEO' ? '🔍 SEO' : '📦 Product'}
+            <button 
+              key={tab} 
+              onClick={() => setActiveTab(tab)}
+              className={`
+                px-6 py-2.5 rounded-lg border-none cursor-pointer text-sm font-bold transition-all duration-300 whitespace-nowrap
+                ${activeTab === tab 
+                  ? 'bg-gradient-to-br from-[#6C2A79] to-[#D41479] text-white shadow-[0_4px_12px_rgba(212,20,121,0.25)]' 
+                  : 'bg-transparent text-[#6C2A79] hover:bg-[#6C2A79]/10'
+                }
+              `}
+            >
+              {tab === 'SEO' ? '🔍 SEO Settings' : '📦 Product Info'}
             </button>
           ))}
         </div>
 
-        {/* Feedback */}
-        {error && <div style={{ background: 'rgba(212,20,121,0.08)', border: '1px solid rgba(212,20,121,0.3)', borderRadius: '12px', padding: '0.85rem 1rem', color: '#D41479', marginBottom: '1.5rem', fontWeight: 500, fontSize: '0.9rem' }}>{error}</div>}
-        {success && <div style={{ background: 'rgba(5,150,105,0.08)', border: '1px solid rgba(5,150,105,0.3)', borderRadius: '12px', padding: '0.85rem 1rem', color: '#059669', marginBottom: '1.5rem', fontWeight: 500, fontSize: '0.9rem' }}>✓ {success}</div>}
+        {/* Alerts */}
+        {error && (
+          <div className="bg-[#D41479]/10 border border-[#D41479]/30 rounded-xl px-5 py-3.5 text-[#D41479] mb-6 font-medium text-sm animate-fadeIn">
+            {error}
+          </div>
+        )}
+        {success && (
+          <div className="bg-[#059669]/10 border border-[#059669]/30 rounded-xl px-5 py-3.5 text-[#059669] mb-6 font-medium text-sm animate-fadeIn flex items-center gap-2">
+            ✓ {success}
+          </div>
+        )}
 
-        {/* Product Tab */}
+        {/* --- Product Tab Content --- */}
         {activeTab === 'Product' && (
-          <form onSubmit={saveProduct} style={{ background: '#fff', borderRadius: '20px', padding: '2rem', boxShadow: '0 4px 20px rgba(108,42,121,0.06)', border: '1px solid rgba(217,168,232,0.3)' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 1.5rem' }}>
-              <div style={fieldStyle}>
-                <label style={labelStyle}>Product Name *</label>
-                <input id="product-name" type="text" required value={product.name} style={inputStyle}
-                  onChange={e => setProduct(p => ({ ...p, name: e.target.value }))} placeholder="e.g. Abaya Wash" />
+          <form 
+            onSubmit={saveProduct} 
+            className="bg-white rounded-2xl md:rounded-[24px] p-5 md:p-8 shadow-[0_4px_20px_rgba(108,42,121,0.06)] border border-[#D9A8E8]/30 animate-fadeIn"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
+              <div className="flex flex-col gap-2">
+                <label className="text-[0.85rem] font-bold text-[#6C2A79]">Product Name *</label>
+                <input 
+                  id="product-name" type="text" required value={product.name} 
+                  className="w-full px-4 py-3 rounded-xl border-[1.5px] border-[#D9A8E8]/50 text-[0.95rem] outline-none text-[#1A0A1D] focus:border-[#D41479] transition-colors"
+                  onChange={e => setProduct(p => ({ ...p, name: e.target.value }))} 
+                  placeholder="e.g. Abaya Wash" 
+                />
               </div>
-              <div style={fieldStyle}>
-                <label style={labelStyle}>Category *</label>
-                <select id="product-category" value={product.category} style={{ ...inputStyle, cursor: 'pointer' }}
-                  onChange={e => setProduct(p => ({ ...p, category: e.target.value }))}>
+              
+              <div className="flex flex-col gap-2">
+                <label className="text-[0.85rem] font-bold text-[#6C2A79]">Category *</label>
+                <select 
+                  id="product-category" value={product.category} 
+                  className="w-full px-4 py-3 rounded-xl border-[1.5px] border-[#D9A8E8]/50 text-[0.95rem] outline-none text-[#1A0A1D] bg-white cursor-pointer focus:border-[#D41479] transition-colors appearance-none"
+                  onChange={e => setProduct(p => ({ ...p, category: e.target.value }))}
+                >
                   {CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
                 </select>
               </div>
             </div>
 
-            <div style={fieldStyle}>
-              <label style={labelStyle}>Description *</label>
-              <textarea id="product-desc" required value={product.description} style={textareaStyle}
+            <div className="flex flex-col gap-2 mb-4 md:mb-6">
+              <label className="text-[0.85rem] font-bold text-[#6C2A79]">Description *</label>
+              <textarea 
+                id="product-desc" required value={product.description} 
+                className="w-full px-4 py-3 rounded-xl border-[1.5px] border-[#D9A8E8]/50 text-[0.95rem] outline-none text-[#1A0A1D] focus:border-[#D41479] transition-colors min-h-[120px] resize-y"
                 onChange={e => setProduct(p => ({ ...p, description: e.target.value }))}
-                placeholder="Product description…" />
+                placeholder="Product description…" 
+              />
             </div>
 
-            <div style={fieldStyle}>
-              <label style={labelStyle}>Image URL *</label>
-              <input id="product-image" type="text" required value={product.imageUrl} style={inputStyle}
+            <div className="flex flex-col gap-2 mb-4 md:mb-6">
+              <label className="text-[0.85rem] font-bold text-[#6C2A79]">Image URL *</label>
+              <input 
+                id="product-image" type="text" required value={product.imageUrl} 
+                className="w-full px-4 py-3 rounded-xl border-[1.5px] border-[#D9A8E8]/50 text-[0.95rem] outline-none text-[#1A0A1D] focus:border-[#D41479] transition-colors"
                 onChange={e => setProduct(p => ({ ...p, imageUrl: e.target.value }))}
-                placeholder="/products/product-name.png" />
+                placeholder="/products/product-name.png" 
+              />
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 1.5rem' }}>
-              <div style={fieldStyle}>
-                <label style={labelStyle}>Slug (URL)</label>
-                <input id="product-slug" type="text" value={product.slug} style={inputStyle}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
+              <div className="flex flex-col gap-2">
+                <label className="text-[0.85rem] font-bold text-[#6C2A79]">Slug (URL Segment)</label>
+                <input 
+                  id="product-slug" type="text" value={product.slug} 
+                  className="w-full px-4 py-3 rounded-xl border-[1.5px] border-[#D9A8E8]/50 text-[0.95rem] outline-none text-[#1A0A1D] focus:border-[#D41479] transition-colors"
                   onChange={e => setProduct(p => ({ ...p, slug: e.target.value }))}
-                  placeholder="e.g. abaya-wash" />
+                  placeholder="e.g. abaya-wash" 
+                />
               </div>
-              <div style={fieldStyle}>
-                <label style={labelStyle}>Sort Order</label>
-                <input id="product-sort" type="number" value={product.sortOrder} style={inputStyle}
-                  onChange={e => setProduct(p => ({ ...p, sortOrder: e.target.value }))} />
+              <div className="flex flex-col gap-2">
+                <label className="text-[0.85rem] font-bold text-[#6C2A79]">Sort Order</label>
+                <input 
+                  id="product-sort" type="number" value={product.sortOrder} 
+                  className="w-full px-4 py-3 rounded-xl border-[1.5px] border-[#D9A8E8]/50 text-[0.95rem] outline-none text-[#1A0A1D] focus:border-[#D41479] transition-colors"
+                  onChange={e => setProduct(p => ({ ...p, sortOrder: e.target.value }))} 
+                />
               </div>
             </div>
 
-            <div style={fieldStyle}>
-              <label style={labelStyle}>Features (comma-separated)</label>
-              <input id="product-features" type="text" value={product.features} style={inputStyle}
+            <div className="flex flex-col gap-2 mb-6 md:mb-8">
+              <label className="text-[0.85rem] font-bold text-[#6C2A79]">Features (comma-separated)</label>
+              <input 
+                id="product-features" type="text" value={product.features} 
+                className="w-full px-4 py-3 rounded-xl border-[1.5px] border-[#D9A8E8]/50 text-[0.95rem] outline-none text-[#1A0A1D] focus:border-[#D41479] transition-colors"
                 onChange={e => setProduct(p => ({ ...p, features: e.target.value }))}
-                placeholder="e.g. Premium Care, Gentle Formula, 500ml" />
+                placeholder="e.g. Premium Care, Gentle Formula, 500ml" 
+              />
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1.5rem' }}>
-              <input id="product-instock" type="checkbox" checked={product.inStock}
+            <div className="flex items-center gap-3 mb-8">
+              <input 
+                id="product-instock" type="checkbox" checked={product.inStock}
                 onChange={e => setProduct(p => ({ ...p, inStock: e.target.checked }))}
-                style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: '#D41479' }} />
-              <label htmlFor="product-instock" style={{ ...labelStyle, margin: 0, cursor: 'pointer' }}>In Stock</label>
+                className="w-5 h-5 cursor-pointer accent-[#D41479] rounded filter drop-shadow-sm" 
+              />
+              <label htmlFor="product-instock" className="text-[0.95rem] font-bold text-[#1A0A1D] cursor-pointer">
+                Product is In-Stock
+              </label>
             </div>
 
-            <div style={{ display: 'flex', gap: '1rem' }}>
-              <button id="save-product-btn" type="submit" disabled={saving}
-                style={{ padding: '0.9rem 2rem', borderRadius: '12px', border: 'none', background: 'linear-gradient(135deg, #6C2A79, #D41479)', color: '#fff', fontWeight: 700, cursor: 'pointer', fontSize: '0.95rem', opacity: saving ? 0.7 : 1, boxShadow: '0 6px 20px rgba(212,20,121,0.3)' }}>
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+              <button 
+                id="save-product-btn" type="submit" disabled={saving}
+                className={`
+                  w-full sm:w-auto px-8 py-3.5 rounded-xl border-none font-bold text-white text-base transition-all duration-300
+                  bg-gradient-to-br from-[#6C2A79] to-[#D41479] shadow-[0_6px_20px_rgba(212,20,121,0.25)] hover:scale-[1.02]
+                  ${saving ? 'opacity-70 cursor-not-allowed transform-none' : 'cursor-pointer'}
+                `}
+              >
                 {saving ? 'Saving…' : isEdit ? '💾 Save Changes' : '➕ Create Product'}
               </button>
-              <Link href="/admin" style={{ padding: '0.9rem 2rem', borderRadius: '12px', background: 'rgba(108,42,121,0.08)', color: '#6C2A79', textDecoration: 'none', fontWeight: 600, fontSize: '0.95rem', display: 'flex', alignItems: 'center' }}>
+              
+              <Link 
+                href="/admin" 
+                className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#6C2A79]/10 text-[#6C2A79] no-underline font-bold text-base text-center hover:bg-[#6C2A79]/20 transition-colors"
+              >
                 Cancel
               </Link>
             </div>
           </form>
         )}
 
-        {/* SEO Tab */}
+        {/* --- SEO Tab Content --- */}
         {activeTab === 'SEO' && (
-          <form onSubmit={saveSeo} style={{ background: '#fff', borderRadius: '20px', padding: '2rem', boxShadow: '0 4px 20px rgba(108,42,121,0.06)', border: '1px solid rgba(217,168,232,0.3)' }}>
+          <form 
+            onSubmit={saveSeo} 
+            className="bg-white rounded-2xl md:rounded-[24px] p-5 md:p-8 shadow-[0_4px_20px_rgba(108,42,121,0.06)] border border-[#D9A8E8]/30 animate-fadeIn"
+          >
             {!productId && (
-              <div style={{ background: 'rgba(212,20,121,0.06)', borderRadius: '12px', padding: '1rem', marginBottom: '1.5rem', color: '#D41479', fontSize: '0.9rem', fontWeight: 500 }}>
-                ⚠️ Save the product first, then you can configure SEO.
+              <div className="bg-[#D41479]/10 rounded-xl p-4 mb-6 text-[#D41479] font-medium text-[0.9rem] flex items-center gap-2">
+                ⚠️ Save the product first before configuring SEO.
               </div>
             )}
 
-            <div style={fieldStyle}>
-              <label style={labelStyle}>Meta Title</label>
-              <input id="seo-meta-title" type="text" value={seo.metaTitle} style={inputStyle}
+            <div className="flex flex-col gap-2 mb-5">
+              <label className="text-[0.85rem] font-bold text-[#6C2A79]">Meta Title</label>
+              <input 
+                id="seo-meta-title" type="text" value={seo.metaTitle} 
+                className="w-full px-4 py-3 rounded-xl border-[1.5px] border-[#D9A8E8]/50 text-[0.95rem] outline-none text-[#1A0A1D] focus:border-[#D41479] transition-colors"
                 onChange={e => setSeo(s => ({ ...s, metaTitle: e.target.value }))}
-                placeholder="e.g. Abaya Wash | Tidy Mimo Premium Cleaning" />
-              <small style={{ color: 'rgba(26,10,29,0.5)', fontSize: '0.78rem' }}>Recommended: 50–60 characters</small>
+                placeholder="e.g. Abaya Wash | Tidy Mimo Premium Cleaning" 
+              />
+              <span className="text-xs text-[#1A0A1D]/50 font-medium">Recommended: 50–60 characters</span>
             </div>
 
-            <div style={fieldStyle}>
-              <label style={labelStyle}>Meta Description</label>
-              <textarea id="seo-meta-desc" value={seo.metaDescription} style={textareaStyle}
+            <div className="flex flex-col gap-2 mb-5">
+              <label className="text-[0.85rem] font-bold text-[#6C2A79]">Meta Description</label>
+              <textarea 
+                id="seo-meta-desc" value={seo.metaDescription} 
+                className="w-full px-4 py-3 rounded-xl border-[1.5px] border-[#D9A8E8]/50 text-[0.95rem] outline-none text-[#1A0A1D] focus:border-[#D41479] transition-colors min-h-[100px] resize-y"
                 onChange={e => setSeo(s => ({ ...s, metaDescription: e.target.value }))}
-                placeholder="Brief description of the product for search engines…" />
-              <small style={{ color: 'rgba(26,10,29,0.5)', fontSize: '0.78rem' }}>Recommended: 120–160 characters</small>
+                placeholder="Brief description of the product for search engines…" 
+              />
+              <span className="text-xs text-[#1A0A1D]/50 font-medium">Recommended: 120–160 characters</span>
             </div>
 
-            <div style={fieldStyle}>
-              <label style={labelStyle}>Keywords</label>
-              <input id="seo-keywords" type="text" value={seo.keywords} style={inputStyle}
+            <div className="flex flex-col gap-2 mb-8">
+              <label className="text-[0.85rem] font-bold text-[#6C2A79]">Keywords</label>
+              <input 
+                id="seo-keywords" type="text" value={seo.keywords} 
+                className="w-full px-4 py-3 rounded-xl border-[1.5px] border-[#D9A8E8]/50 text-[0.95rem] outline-none text-[#1A0A1D] focus:border-[#D41479] transition-colors"
                 onChange={e => setSeo(s => ({ ...s, keywords: e.target.value }))}
-                placeholder="e.g. abaya wash, black fabric care, premium detergent" />
+                placeholder="e.g. abaya wash, black fabric care, premium detergent" 
+              />
             </div>
 
-            <div style={{ borderTop: '1px solid rgba(217,168,232,0.3)', paddingTop: '1.5rem', marginTop: '1.5rem' }}>
-              <h3 style={{ margin: '0 0 1.2rem', fontSize: '1rem', fontWeight: 700, color: '#6C2A79' }}>Open Graph (Social Sharing)</h3>
-              <div style={fieldStyle}>
-                <label style={labelStyle}>OG Title</label>
-                <input id="seo-og-title" type="text" value={seo.ogTitle} style={inputStyle}
-                  onChange={e => setSeo(s => ({ ...s, ogTitle: e.target.value }))}
-                  placeholder="Title shown when shared on social media" />
+            <div className="border-t border-[#D9A8E8]/30 pt-8 mt-4">
+              <h3 className="m-0 mb-5 text-[1.1rem] font-bold text-[#6C2A79]">Open Graph (Social Sharing)</h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 mb-5 block md:hidden lg:grid">
+                  <div className="flex flex-col gap-2">
+                    <label className="text-[0.85rem] font-bold text-[#6C2A79]">OG Title</label>
+                    <input 
+                      id="seo-og-title" type="text" value={seo.ogTitle} 
+                      className="w-full px-4 py-3 rounded-xl border-[1.5px] border-[#D9A8E8]/50 text-[0.95rem] outline-none text-[#1A0A1D] focus:border-[#D41479] transition-colors"
+                      onChange={e => setSeo(s => ({ ...s, ogTitle: e.target.value }))}
+                      placeholder="Title shown when shared on social media" 
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label className="text-[0.85rem] font-bold text-[#6C2A79]">OG Image URL</label>
+                    <input 
+                      id="seo-og-image" type="text" value={seo.ogImage} 
+                      className="w-full px-4 py-3 rounded-xl border-[1.5px] border-[#D9A8E8]/50 text-[0.95rem] outline-none text-[#1A0A1D] focus:border-[#D41479] transition-colors"
+                      onChange={e => setSeo(s => ({ ...s, ogImage: e.target.value }))}
+                      placeholder="https://… (1200×630 recommended)" 
+                    />
+                  </div>
               </div>
-              <div style={fieldStyle}>
-                <label style={labelStyle}>OG Description</label>
-                <textarea id="seo-og-desc" value={seo.ogDescription} style={textareaStyle}
+
+              <div className="flex flex-col gap-2 mb-8">
+                <label className="text-[0.85rem] font-bold text-[#6C2A79]">OG Description</label>
+                <textarea 
+                  id="seo-og-desc" value={seo.ogDescription} 
+                  className="w-full px-4 py-3 rounded-xl border-[1.5px] border-[#D9A8E8]/50 text-[0.95rem] outline-none text-[#1A0A1D] focus:border-[#D41479] transition-colors min-h-[100px] resize-y"
                   onChange={e => setSeo(s => ({ ...s, ogDescription: e.target.value }))}
-                  placeholder="Description shown when shared on social media" />
-              </div>
-              <div style={fieldStyle}>
-                <label style={labelStyle}>OG Image URL</label>
-                <input id="seo-og-image" type="text" value={seo.ogImage} style={inputStyle}
-                  onChange={e => setSeo(s => ({ ...s, ogImage: e.target.value }))}
-                  placeholder="https://… (1200×630 recommended)" />
+                  placeholder="Description shown when shared on social media" 
+                />
               </div>
             </div>
 
-            <button id="save-seo-btn" type="submit" disabled={saving || !productId}
-              style={{ padding: '0.9rem 2rem', borderRadius: '12px', border: 'none', background: 'linear-gradient(135deg, #6C2A79, #D41479)', color: '#fff', fontWeight: 700, cursor: 'pointer', fontSize: '0.95rem', opacity: (saving || !productId) ? 0.7 : 1, boxShadow: '0 6px 20px rgba(212,20,121,0.3)' }}>
+            <button 
+              id="save-seo-btn" type="submit" disabled={saving || !productId}
+              className={`
+                w-full sm:w-auto px-8 py-3.5 rounded-xl border-none font-bold text-white text-base transition-all duration-300
+                bg-gradient-to-br from-[#6C2A79] to-[#D41479] shadow-[0_6px_20px_rgba(212,20,121,0.25)] hover:scale-[1.02]
+                ${(saving || !productId) ? 'opacity-70 cursor-not-allowed transform-none' : 'cursor-pointer'}
+              `}
+            >
               {saving ? 'Saving SEO…' : '🔍 Save SEO Settings'}
             </button>
           </form>

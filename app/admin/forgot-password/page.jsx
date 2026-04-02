@@ -46,41 +46,43 @@ export default function ForgotPassword() {
   }
 
   return (
-    <div style={styles.page}>
-      <div style={styles.card}>
-        <div style={styles.header}>
-          <div style={styles.icon}>🔑</div>
-          <h1 style={styles.title}>Reset Password</h1>
-          <p style={styles.subtitle}>Enter your admin email to receive a reset link</p>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#FCE8F4] to-[#EDD5F5] p-5 font-[Inter]">
+      <div className="w-full max-w-[440px] bg-white/90 backdrop-blur-xl rounded-[28px] overflow-hidden shadow-[0_32px_80px_rgba(108,42,121,0.18)] border border-[#D9A8E8]/40 animate-fadeIn">
+        <div className="bg-gradient-to-br from-[#6C2A79] to-[#D41479] py-10 px-8 text-center">
+          <div className="text-[2.5rem] mb-3 leading-none">🔑</div>
+          <h1 className="m-0 text-white text-2xl font-bold tracking-wide">Reset Password</h1>
+          <p className="m-0 mt-2 text-white/80 text-sm font-medium">Enter your admin email to receive a reset link</p>
         </div>
 
-        <div style={styles.body}>
+        <div className="p-8">
           {status === 'sent' ? (
-            <div style={styles.successBox}>
-              <div style={styles.successIcon}>✉️</div>
-              <h2 style={styles.successTitle}>Check your inbox!</h2>
-              <p style={styles.successText}>
+            <div className="text-center">
+              <div className="text-[3rem] mb-4 leading-none">✉️</div>
+              <h2 className="text-[1.4rem] font-bold text-[#1A0A1D] mb-3">Check your inbox!</h2>
+              <p className="text-[#1A0A1D]/70 leading-relaxed text-[0.95rem] mb-6">
                 A password reset link has been sent to <strong>{email}</strong>.
                 Check your spam folder if it doesn't arrive within a few minutes.
               </p>
-              <div style={styles.actionRow}>
+              <div className="flex flex-col gap-3 items-center">
                 <button
                   id="admin-resend-btn"
                   onClick={handleResend}
-                  style={styles.resendBtn}
+                  className="px-8 py-3.5 rounded-xl bg-gradient-to-br from-[#6C2A79] to-[#D41479] text-white border-none font-bold cursor-pointer text-[0.95rem] shadow-[0_8px_24px_rgba(212,20,121,0.3)] hover:scale-[1.02] transition-transform w-full"
                 >
                   Resend Email
                 </button>
-                <Link href="/admin/login" style={styles.backLink}>← Back to Login</Link>
+                <Link href="/admin/login" className="text-[#D41479] font-semibold text-[0.9rem] no-underline hover:underline mt-2">← Back to Login</Link>
               </div>
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
               {(status === 'error' && error) && (
-                <div style={styles.errorBox}>{error}</div>
+                <div className="bg-[#D41479]/10 border border-[#D41479]/30 rounded-xl px-4 py-3.5 text-[#D41479] text-[0.9rem] mb-5 font-medium animate-fadeIn">
+                  {error}
+                </div>
               )}
-              <div style={styles.fieldGroup}>
-                <label style={styles.label}>Admin Email</label>
+              <div className="mb-5 flex flex-col gap-2">
+                <label className="block text-[0.85rem] font-bold text-[#6C2A79]">Admin Email</label>
                 <input
                   id="forgot-email"
                   type="email"
@@ -88,19 +90,22 @@ export default function ForgotPassword() {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   required
-                  style={styles.input}
+                  className="w-full px-4 py-3.5 rounded-[14px] border-[1.5px] border-[#D9A8E8]/50 text-base outline-none bg-[#FCE8F4]/30 text-[#1A0A1D] focus:border-[#D41479] transition-colors focus:bg-white"
                 />
               </div>
               <button
                 id="forgot-submit-btn"
                 type="submit"
                 disabled={status === 'loading'}
-                style={{ ...styles.btn, opacity: status === 'loading' ? 0.7 : 1 }}
+                className={`
+                  w-full p-4 rounded-[14px] border-none bg-gradient-to-br from-[#6C2A79] to-[#D41479] text-white text-base font-bold cursor-pointer shadow-[0_8px_24px_rgba(212,20,121,0.35)] hover:scale-[1.02] transition-all duration-300 mb-5
+                  ${status === 'loading' ? 'opacity-70 cursor-not-allowed transform-none' : ''}
+                `}
               >
                 {status === 'loading' ? 'Sending…' : 'Send Reset Link →'}
               </button>
-              <div style={styles.links}>
-                <Link href="/admin/login" style={styles.link}>← Back to Login</Link>
+              <div className="text-center mt-2">
+                <Link href="/admin/login" className="text-[#D41479] text-[0.88rem] font-bold no-underline hover:underline">← Back to Login</Link>
               </div>
             </form>
           )}
@@ -109,56 +114,3 @@ export default function ForgotPassword() {
     </div>
   );
 }
-
-const styles = {
-  page: {
-    minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
-    background: 'linear-gradient(135deg, #FCE8F4 0%, #EDD5F5 100%)', padding: '2rem',
-  },
-  card: {
-    width: '100%', maxWidth: '440px',
-    background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(20px)',
-    WebkitBackdropFilter: 'blur(20px)', borderRadius: '28px', overflow: 'hidden',
-    boxShadow: '0 32px 80px rgba(108,42,121,0.18)', border: '1px solid rgba(217,168,232,0.4)',
-  },
-  header: {
-    background: 'linear-gradient(135deg, #6C2A79, #D41479)',
-    padding: '2.5rem 2rem', textAlign: 'center',
-  },
-  icon: { fontSize: '2.5rem', marginBottom: '0.8rem' },
-  title: { color: '#fff', margin: 0, fontSize: '1.5rem', fontWeight: 700 },
-  subtitle: { color: 'rgba(255,255,255,0.75)', margin: '6px 0 0', fontSize: '0.88rem' },
-  body: { padding: '2rem' },
-  errorBox: {
-    background: 'rgba(212,20,121,0.08)', border: '1px solid rgba(212,20,121,0.3)',
-    borderRadius: '12px', padding: '0.85rem 1rem', color: '#D41479', fontSize: '0.9rem',
-    marginBottom: '1.2rem', fontWeight: 500,
-  },
-  fieldGroup: { marginBottom: '1.2rem' },
-  label: { display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#6C2A79', marginBottom: '8px' },
-  input: {
-    width: '100%', padding: '0.85rem 1rem', borderRadius: '14px',
-    border: '1.5px solid rgba(217,168,232,0.5)', fontSize: '1rem', outline: 'none',
-    background: 'rgba(252,232,244,0.3)', color: '#1A0A1D', boxSizing: 'border-box',
-  },
-  btn: {
-    width: '100%', padding: '1rem', borderRadius: '14px', border: 'none',
-    background: 'linear-gradient(135deg, #6C2A79, #D41479)', color: '#fff',
-    fontSize: '1rem', fontWeight: 700, cursor: 'pointer',
-    boxShadow: '0 8px 24px rgba(212,20,121,0.35)',
-  },
-  links: { textAlign: 'center', marginTop: '1.2rem' },
-  link: { color: '#D41479', fontSize: '0.88rem', fontWeight: 600, textDecoration: 'none' },
-  successBox: { textAlign: 'center' },
-  successIcon: { fontSize: '3rem', marginBottom: '1rem' },
-  successTitle: { fontSize: '1.4rem', fontWeight: 700, color: '#1A0A1D', margin: '0 0 0.8rem' },
-  successText: { color: 'rgba(26,10,29,0.7)', lineHeight: 1.7, fontSize: '0.95rem', margin: '0 0 1.5rem' },
-  actionRow: { display: 'flex', flexDirection: 'column', gap: '0.8rem', alignItems: 'center' },
-  resendBtn: {
-    padding: '0.85rem 2rem', borderRadius: '12px',
-    background: 'linear-gradient(135deg, #6C2A79, #D41479)',
-    color: '#fff', border: 'none', fontWeight: 700, cursor: 'pointer', fontSize: '0.95rem',
-    boxShadow: '0 8px 24px rgba(212,20,121,0.3)',
-  },
-  backLink: { color: '#D41479', fontWeight: 600, fontSize: '0.9rem', textDecoration: 'none' },
-};

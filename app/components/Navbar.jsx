@@ -93,7 +93,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Backdrop */}
       <div 
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-[9998] transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-[9998] transition-all duration-300 ${mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
         onClick={() => setMobileMenuOpen(false)}
       />
       
@@ -101,8 +101,8 @@ export default function Navbar() {
       <div 
         className={`
           fixed top-0 right-0 h-screen w-[85vw] max-w-[320px] z-[9999] bg-bg-main
-          border-l border-glass-border p-8 flex flex-col shadow-2xl transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1)
-          ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}
+          border-l border-glass-border p-8 flex flex-col shadow-2xl transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1)
+          ${mobileMenuOpen ? 'translate-x-0 visible' : 'translate-x-[105%] invisible'}
         `}
       >
         <div className="flex justify-between items-center mb-12">

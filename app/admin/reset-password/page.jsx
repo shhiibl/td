@@ -39,33 +39,45 @@ function ResetForm() {
 
   if (status === 'success') {
     return (
-      <div style={{ textAlign: 'center', padding: '2rem' }}>
-        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🎉</div>
-        <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#1A0A1D', margin: '0 0 0.8rem' }}>Password Updated!</h2>
-        <p style={{ color: 'rgba(26,10,29,0.7)', fontSize: '0.95rem' }}>Redirecting you to login…</p>
+      <div className="text-center p-8">
+        <div className="text-[3rem] mb-4 leading-none">🎉</div>
+        <h2 className="text-[1.4rem] font-bold text-[#1A0A1D] mb-3">Password Updated!</h2>
+        <p className="text-[#1A0A1D]/70 text-[0.95rem]">Redirecting you to login…</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ padding: '2rem' }}>
-      {error && <div style={styles.errorBox}>{error}</div>}
-      <div style={styles.fieldGroup}>
-        <label style={styles.label}>New Password</label>
+    <form onSubmit={handleSubmit} className="p-8">
+      {error && (
+        <div className="bg-[#D41479]/10 border border-[#D41479]/30 rounded-xl px-4 py-3.5 text-[#D41479] text-[0.9rem] mb-5 font-medium animate-fadeIn">
+          {error}
+        </div>
+      )}
+      <div className="mb-5 flex flex-col gap-2">
+        <label className="block text-[0.85rem] font-bold text-[#6C2A79]">New Password</label>
         <input id="new-password" type="password" placeholder="Min 8 characters" value={form.password}
-          onChange={e => setForm(f => ({ ...f, password: e.target.value }))} required style={styles.input} />
+          onChange={e => setForm(f => ({ ...f, password: e.target.value }))} required 
+          className="w-full px-4 py-3.5 rounded-[14px] border-[1.5px] border-[#D9A8E8]/50 text-base outline-none bg-[#FCE8F4]/30 text-[#1A0A1D] focus:border-[#D41479] transition-colors focus:bg-white tracking-widest"
+        />
       </div>
-      <div style={styles.fieldGroup}>
-        <label style={styles.label}>Confirm Password</label>
+      <div className="mb-5 flex flex-col gap-2">
+        <label className="block text-[0.85rem] font-bold text-[#6C2A79]">Confirm Password</label>
         <input id="confirm-password" type="password" placeholder="Repeat password" value={form.confirm}
-          onChange={e => setForm(f => ({ ...f, confirm: e.target.value }))} required style={styles.input} />
+          onChange={e => setForm(f => ({ ...f, confirm: e.target.value }))} required 
+          className="w-full px-4 py-3.5 rounded-[14px] border-[1.5px] border-[#D9A8E8]/50 text-base outline-none bg-[#FCE8F4]/30 text-[#1A0A1D] focus:border-[#D41479] transition-colors focus:bg-white tracking-widest"
+        />
       </div>
       <button id="reset-submit-btn" type="submit" disabled={status === 'loading' || !token}
-        style={{ ...styles.btn, opacity: (status === 'loading' || !token) ? 0.7 : 1 }}>
+        className={`
+          w-full p-4 rounded-[14px] border-none bg-gradient-to-br from-[#6C2A79] to-[#D41479] text-white text-base font-bold cursor-pointer shadow-[0_8px_24px_rgba(212,20,121,0.35)] hover:scale-[1.02] transition-all duration-300 mb-5
+          ${(status === 'loading' || !token) ? 'opacity-70 cursor-not-allowed transform-none' : ''}
+        `}
+      >
         {status === 'loading' ? 'Updating…' : 'Set New Password →'}
       </button>
-      <div style={{ textAlign: 'center', marginTop: '1.2rem' }}>
-        <Link href="/admin/login" style={styles.link}>← Back to Login</Link>
+      <div className="text-center mt-2">
+        <Link href="/admin/login" className="text-[#D41479] text-[0.88rem] font-bold no-underline hover:underline">← Back to Login</Link>
       </div>
     </form>
   );
@@ -73,49 +85,17 @@ function ResetForm() {
 
 export default function ResetPassword() {
   return (
-    <div style={styles.page}>
-      <div style={styles.card}>
-        <div style={styles.header}>
-          <div style={{ fontSize: '2.5rem', marginBottom: '0.8rem' }}>🔐</div>
-          <h1 style={styles.title}>Set New Password</h1>
-          <p style={styles.subtitle}>Choose a strong password for your admin account</p>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#FCE8F4] to-[#EDD5F5] p-5 font-[Inter]">
+      <div className="w-full max-w-[440px] bg-white/90 backdrop-blur-xl rounded-[28px] overflow-hidden shadow-[0_32px_80px_rgba(108,42,121,0.18)] border border-[#D9A8E8]/40 animate-fadeIn">
+        <div className="bg-gradient-to-br from-[#6C2A79] to-[#D41479] py-10 px-8 text-center">
+          <div className="text-[2.5rem] mb-3 leading-none">🔐</div>
+          <h1 className="m-0 text-white text-2xl font-bold tracking-wide">Set New Password</h1>
+          <p className="m-0 mt-2 text-white/80 text-sm font-medium">Choose a strong password for your admin account</p>
         </div>
-        <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center' }}>Loading…</div>}>
+        <Suspense fallback={<div className="p-8 text-center text-[#1A0A1D]/60 font-medium">Loading…</div>}>
           <ResetForm />
         </Suspense>
       </div>
     </div>
   );
 }
-
-const styles = {
-  page: {
-    minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
-    background: 'linear-gradient(135deg, #FCE8F4 0%, #EDD5F5 100%)', padding: '2rem',
-  },
-  card: {
-    width: '100%', maxWidth: '440px', background: 'rgba(255,255,255,0.9)',
-    backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderRadius: '28px',
-    overflow: 'hidden', boxShadow: '0 32px 80px rgba(108,42,121,0.18)',
-    border: '1px solid rgba(217,168,232,0.4)',
-  },
-  header: { background: 'linear-gradient(135deg, #6C2A79, #D41479)', padding: '2.5rem 2rem', textAlign: 'center' },
-  title: { color: '#fff', margin: 0, fontSize: '1.5rem', fontWeight: 700 },
-  subtitle: { color: 'rgba(255,255,255,0.75)', margin: '6px 0 0', fontSize: '0.88rem' },
-  errorBox: {
-    background: 'rgba(212,20,121,0.08)', border: '1px solid rgba(212,20,121,0.3)', borderRadius: '12px',
-    padding: '0.85rem 1rem', color: '#D41479', fontSize: '0.9rem', marginBottom: '1.2rem', fontWeight: 500,
-  },
-  fieldGroup: { marginBottom: '1.2rem' },
-  label: { display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#6C2A79', marginBottom: '8px' },
-  input: {
-    width: '100%', padding: '0.85rem 1rem', borderRadius: '14px', border: '1.5px solid rgba(217,168,232,0.5)',
-    fontSize: '1rem', outline: 'none', background: 'rgba(252,232,244,0.3)', color: '#1A0A1D', boxSizing: 'border-box',
-  },
-  btn: {
-    width: '100%', padding: '1rem', borderRadius: '14px', border: 'none',
-    background: 'linear-gradient(135deg, #6C2A79, #D41479)', color: '#fff', fontSize: '1rem',
-    fontWeight: 700, cursor: 'pointer', boxShadow: '0 8px 24px rgba(212,20,121,0.35)',
-  },
-  link: { color: '#D41479', fontSize: '0.88rem', fontWeight: 600, textDecoration: 'none' },
-};
