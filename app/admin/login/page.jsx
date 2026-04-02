@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -14,16 +15,10 @@ export default function AdminLogin() {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch('/api/admin/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
-      const data = await res.json();
-      if (!res.ok) { setError(data.error || 'Login failed.'); return; }
+      await axios.post('/api/admin/login', form);
       router.push('/admin');
-    } catch {
-      setError('Network error. Please try again.');
+    } catch (err) {
+      setError(err.response?.data?.error || 'Login failed.');
     } finally {
       setLoading(false);
     }

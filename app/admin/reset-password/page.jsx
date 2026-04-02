@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect, Suspense } from 'react';
+import axios from 'axios';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -23,17 +24,12 @@ function ResetForm() {
     setStatus('loading');
     setError('');
     try {
-      const res = await fetch('/api/admin/reset-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, password: form.password }),
-      });
-      const data = await res.json();
-      if (!res.ok) { setError(data.error || 'Reset failed.'); setStatus('error'); return; }
+      await axios.post('/api/admin/reset-password', { token, password: form.password });
       setStatus('success');
       setTimeout(() => router.push('/admin/login'), 2500);
-    } catch {
-      setError('Network error. Please try again.'); setStatus('error');
+    } catch (err) {
+      setError(err.response?.data?.error || 'Reset failed.');
+      setStatus('error');
     }
   }
 

@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -54,12 +55,9 @@ export default function ProductForm({ initialProduct = null, initialSeo = null, 
       };
 
       const url = isEdit ? `/api/admin/products/${productId}` : '/api/admin/products';
-      const method = isEdit ? 'PUT' : 'POST';
-      const res = await fetch(url, {
-        method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
-      });
-      const data = await res.json();
-      if (!res.ok) { setError(data.error || 'Save failed.'); return; }
+      const method = isEdit ? 'put' : 'post';
+      const res = await axios({ method, url, data: payload });
+      const data = res.data;
 
       if (!isEdit) { router.push(`/admin/products/${data.id}/edit`); return; }
       setSuccess('Product saved!');
@@ -73,15 +71,14 @@ export default function ProductForm({ initialProduct = null, initialSeo = null, 
     if (!productId) { setError('Save the product first, then update SEO.'); return; }
     setSaving(true); setError(''); setSuccess('');
     try {
-      const res = await fetch(`/api/admin/products/${productId}/seo`, {
-        method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(seo),
-      });
-      const data = await res.json();
-      if (!res.ok) { setError(data.error || 'SEO save failed.'); return; }
+      await axios.put(`/api/admin/products/${productId}/seo`, seo);
       setSuccess('SEO updated!');
       setTimeout(() => setSuccess(''), 3000);
-    } catch { setError('Network error.'); }
-    finally { setSaving(false); }
+    } catch (err) {
+      setError(err.response?.data?.error || 'SEO save failed.');
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (

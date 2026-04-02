@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -45,10 +46,9 @@ export default function Products() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/products')
-      .then(res => res.json())
-      .then(data => {
-        setProducts(Array.isArray(data) ? data : []);
+    axios.get('/api/products')
+      .then(res => {
+        setProducts(Array.isArray(res.data) ? res.data : []);
         setLoading(false);
       })
       .catch(err => {

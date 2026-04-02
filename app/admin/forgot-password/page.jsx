@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import axios from 'axios';
 import Link from 'next/link';
 
 export default function ForgotPassword() {
@@ -12,16 +13,10 @@ export default function ForgotPassword() {
     setStatus('loading');
     setError('');
     try {
-      const res = await fetch('/api/admin/forgot-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-      const data = await res.json();
-      if (!res.ok) { setError(data.error || 'Something went wrong.'); setStatus('error'); return; }
+      await axios.post('/api/admin/forgot-password', { email });
       setStatus('sent');
-    } catch {
-      setError('Network error. Please try again.');
+    } catch (err) {
+      setError(err.response?.data?.error || 'Something went wrong.');
       setStatus('error');
     }
   }
@@ -31,16 +26,10 @@ export default function ForgotPassword() {
     setStatus('loading');
     setError('');
     try {
-      const res = await fetch('/api/admin/forgot-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-      const data = await res.json();
-      if (!res.ok) { setError(data.error || 'Something went wrong.'); setStatus('error'); return; }
+      await axios.post('/api/admin/forgot-password', { email });
       setStatus('sent');
-    } catch {
-      setError('Network error. Please try again.');
+    } catch (err) {
+      setError(err.response?.data?.error || 'Something went wrong.');
       setStatus('error');
     }
   }

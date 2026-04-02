@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -34,12 +35,14 @@ export default function AdminDashboard() {
 
   const loadProducts = useCallback(async () => {
     try {
-      const res = await fetch('/api/admin/products');
-      if (res.status === 401) { router.replace('/admin/login'); return; }
-      const data = await res.json();
-      setProducts(Array.isArray(data) ? data : []);
-    } catch { showToast('Failed to load products', 'error'); }
-    finally { setLoading(false); }
+      const res = await axios.get('/api/admin/products');
+      setProducts(Array.isArray(res.data) ? res.data : []);
+    } catch (err) {
+      if (err.response?.status === 401) { router.replace('/admin/login'); return; }
+      showToast('Failed to load products', 'error');
+    } finally {
+      setLoading(false);
+    }
   }, [router]);
 
   useEffect(() => { loadProducts(); }, [loadProducts]);
@@ -48,34 +51,32 @@ export default function AdminDashboard() {
     if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
     setDeleting(id);
     try {
-      const res = await fetch(`/api/admin/products/${id}`, { method: 'DELETE' });
-      if (res.ok) { setProducts(p => p.filter(x => x.id !== id)); showToast(`"${name}" deleted.`); }
-      else showToast('Delete failed.', 'error');
-    } catch { showToast('Network error.', 'error'); }
-    finally { setDeleting(null); }
-  };
-
-  const updateSortOrder = async (id, currentOrder, delta) => {
-    try {
-      const newOrder = currentOrder + delta;
-      const res = await fetch(`/api/admin/products/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sortOrder: newOrder })
-      });
-      if (res.ok) {
-        showToast('Order updated.');
-        loadProducts(); // reload to show new visual order
-      } else {
-        showToast('Failed to update order.', 'error');
-      }
+      await axios.delete(`/api/admin/products/${id}`);
+      setProducts(p => p.filter(x => x.id !== id));
+      showToast(`"${name}" deleted.`);
     } catch {
-      showToast('Network error.', 'error');
+      showToast('Delete failed.', 'error');
+    } finally {
+      setDeleting(null);
     }
   };
 
+  const updateProduct = async (id, updates) => {
+    try {
+      await axios.put(`/api/admin/products/${id}`, updates);
+      showToast('Product updated.');
+      loadProducts();
+    } catch {
+      showToast('Update failed.', 'error');
+    }
+  };
+
+  const updateSortOrder = async (id, currentOrder, delta) => {
+    updateProduct(id, { sortOrder: currentOrder + delta });
+  };
+
   const handleLogout = async () => {
-    await fetch('/api/admin/logout', { method: 'POST' });
+    await axios.post('/api/admin/logout');
     router.replace('/admin/login');
   };
 
@@ -94,7 +95,7 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-[#F9F0FB] font-[Inter]">
+    <div className="flex flex-col md:flex-row md:max-h-screen min-h-screen bg-[#F9F0FB] font-[Inter]">
       {/* Toast */}
       {toast && (
         <div 
@@ -111,10 +112,8 @@ export default function AdminDashboard() {
         {/* Brand & Mobile Hamburger Header */}
         <div className="p-4 md:p-6 md:pb-6 flex items-center justify-between md:justify-start gap-4 border-b border-[#D9A8E8]/10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#6C2A79] to-[#D41479] flex items-center justify-center font-black text-white text-sm">
-              TM
-            </div>
-            <span className="text-[#FCE8F4] font-bold text-lg">Admin</span>
+           
+            <span className="text-[#FCE8F4] font-bold text-lg">Admin Portal</span>
           </div>
           
           {/* Mobile Toggle Button */}
@@ -240,7 +239,13 @@ export default function AdminDashboard() {
                     <button onClick={() => updateSortOrder(product.id, product.sortOrder, -1)} className="text-[#6C2A79] hover:bg-[#D9A8E8]/30 p-1 rounded-lg border-none bg-transparent cursor-pointer transition-colors" title="Move Left/Up">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
                     </button>
-                    <span className="text-[10px] font-black w-3 text-center text-[#1A0A1D]" title="Sort Order">{product.sortOrder}</span>
+                    <input 
+                      type="number"
+                      value={product.sortOrder}
+                      onChange={(e) => updateProduct(product.id, { sortOrder: parseInt(e.target.value) || 0 })}
+                      className="text-[10px] font-black w-8 text-center text-[#1A0A1D] bg-transparent border-none outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                      title="Direct Sort Order Edit"
+                    />
                     <button onClick={() => updateSortOrder(product.id, product.sortOrder, 1)} className="text-[#6C2A79] hover:bg-[#D9A8E8]/30 p-1 rounded-lg border-none bg-transparent cursor-pointer transition-colors" title="Move Right/Down">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
                     </button>
@@ -257,12 +262,23 @@ export default function AdminDashboard() {
                 
                 {/* Details Section */}
                 <div className="p-5 flex-1 flex flex-col">
-                  <span 
-                    className="inline-block px-3 py-1 rounded-full text-[0.65rem] font-black tracking-wider mb-3 w-fit"
-                    style={{ background: CATEGORY_COLORS[product.category] + '15', color: CATEGORY_COLORS[product.category] }}
-                  >
-                    {CATEGORY_LABELS[product.category] || product.category}
-                  </span>
+                  <div className="relative mb-3 w-fit group/select">
+                    <select 
+                      value={product.category}
+                      onChange={(e) => updateProduct(product.id, { category: e.target.value })}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                    >
+                      {Object.entries(CATEGORY_LABELS).map(([val, label]) => (
+                        <option key={val} value={val}>{label}</option>
+                      ))}
+                    </select>
+                    <span 
+                      className="inline-block px-3 py-1 rounded-full text-[0.65rem] font-black tracking-wider w-fit transition-all group-hover/select:scale-105"
+                      style={{ background: CATEGORY_COLORS[product.category] + '15', color: CATEGORY_COLORS[product.category] }}
+                    >
+                      {CATEGORY_LABELS[product.category] || product.category} ▾
+                    </span>
+                  </div>
                   
                   <h3 className="m-0 mb-2 text-lg font-bold text-[#1A0A1D] leading-tight">
                     {product.name}
